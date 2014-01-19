@@ -1,0 +1,8 @@
+== YAAIWA 
+=== stands for "Yet Another Artificial Intelligence WebApp"
+
+== README
+
+Things you may want to cover:
+
+* It is a Rails app, but only to easy access the urls. Every important thing is written in javascript. 
