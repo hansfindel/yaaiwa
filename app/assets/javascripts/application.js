@@ -16,6 +16,8 @@
 //= require_tree .
 
 $(document).ready(function(){
-	PuzzleView.init(16)	
+	//PuzzleView.init(16)	
+	var _puzzleView = new PuzzleView()
+	_puzzleView.init(16)
 })
 
