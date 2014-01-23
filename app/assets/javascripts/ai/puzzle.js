@@ -292,9 +292,9 @@ function Puzzle (){
 	}
 	this.simpleMove = function(index1, index2){
 		if(this.validIndex(index1) && this.validIndex(index2)){
-			var temp = this.array[index1]
+			var temp = this.array[index1];
 			this.array[index1] = this.array[index2]
-			this.index2 = temp; 
+			this.array[index2] = temp; 
 		}
 	}
 }

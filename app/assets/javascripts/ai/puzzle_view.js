@@ -101,12 +101,9 @@ function PuzzleView(){
 				// console.log("t: ", target)
 				var value  = $(target).data("cell-id")
 				if(value > 0){
-					console.log("this: ", this)
 					moveable = self.puzzle.isMoveable(value);
 					if(moveable == 1){
-						console.log("aaaa")
 						self.simpleMove(value);
-						console.log("bbbb")
 					}
 				}
 			})
@@ -162,8 +159,6 @@ function PuzzleView(){
 			var to   = $("[data-cell-index='"+zeroIndex+"'")
 			var f_v  = from.data("cell-id")
 			var t_v  = to.data("cell-id") 
-			console.log("tv: ", t_v)
-			console.log("f_v: ", f_v)	
 			if((f_v == "0" && t_v) || (f_v  && t_v == "0")) {
 				from.data("cell-id", t_v)
 				from.text(this.cellValue(t_v))
