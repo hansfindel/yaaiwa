@@ -97,10 +97,11 @@ function PuzzleView(){
 			self = this; 
 			$(this.container).html(self._htmlRepresentation(self))
 			$(this.container).data("container-name", this.container)
-			// $(".cell", self.container).unbind("click")
 			var cells = $(".cell", self.container)
+			// no unbinding since the trigger is very specific
+			// may reuse if re-rendering is a possibility
+			// cells.unbind("click") 
 			cells.click(function(e){
-				// console.log("e: ", e)
 				// this == cell clicked
 				var context = this.parentElement.parentElement.parentElement; // container > matrix > row > cell
 				var containerName = $(context).data("container-name")
