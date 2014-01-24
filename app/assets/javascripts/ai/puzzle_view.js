@@ -88,25 +88,42 @@
 function PuzzleView(){
 	this.puzzle = null  
 	this.id = null
-	this.init = function(value){
+	this.container = ".puzzle-container" // default 
+	this.init = function(value, container){
+		this.setContainer(container)
 		this.puzzle = new Puzzle() 
 		this.puzzle.init(value);
 		if(this.puzzle){
 			self = this; 
-			$(".puzzle-container").html(self._htmlRepresentation(self))
-			$(".cell").unbind("click")
-			$(".cell").click(function(e){
+			$(this.container).html(self._htmlRepresentation(self))
+			$(this.container).data("container-name", this.container)
+			// $(".cell", self.container).unbind("click")
+			var cells = $(".cell", self.container)
+			cells.click(function(e){
 				// console.log("e: ", e)
+				// this == cell clicked
+				var context = this.parentElement.parentElement.parentElement; // container > matrix > row > cell
+				var containerName = $(context).data("container-name")
+				// console.log("context: ", context)
+				// console.log("containerName: ", containerName)
 				var target = e.target; 
-				// console.log("t: ", target)
 				var value  = $(target).data("cell-id")
 				if(value > 0){
-					moveable = self.puzzle.isMoveable(value);
-					if(moveable == 1){
-						self.simpleMove(value);
+					var puzzleView = PuzzleController.getPuzzleView(containerName)
+					if(puzzleView){
+						moveable = puzzleView.puzzle.isMoveable(value);
+						if(moveable == 1){
+							self.simpleMove(value, puzzleView);
+						}
+						// if more...
 					}
 				}
 			})
+		}
+	}
+	this.setContainer = function(_container){
+		if(_container){
+			this.container = _container
 		}
 	}
 	this.setId =  function(_id){
@@ -148,15 +165,18 @@ function PuzzleView(){
 	this.cellValue = function(val){
 		return (val > 0 ? val : "")
 	}
-	this.simpleMove = function(value){
-		var cellIndex   = this.puzzle.findIndexFor(value); 
-		var nearbyZeros = this.puzzle.findNearbyZeros(cellIndex); 
-		var zeros_count = nearbyZeros.length; 
+	this.simpleMove = function(value, puzzleView){
+		var puzzle  = puzzleView.puzzle
+		var context = puzzleView.container;
+		var cellIndex   = puzzle.findIndexFor(value); 
+		var nearbyZeros = puzzle.findNearbyZeros(cellIndex); 
+		var zeros_count = nearbyZeros.length;
+		
 		if(zeros_count == 1){
 			var zeroIndex = nearbyZeros[0];
-			this.puzzle.simpleMove(cellIndex, zeroIndex)
-			var from = $("[data-cell-index='"+cellIndex+"'")
-			var to   = $("[data-cell-index='"+zeroIndex+"'")
+			puzzle.simpleMove(cellIndex, zeroIndex)
+			var from = $("[data-cell-index='"+cellIndex+"']", context)
+			var to   = $("[data-cell-index='"+zeroIndex+"']", context)
 			var f_v  = from.data("cell-id")
 			var t_v  = to.data("cell-id") 
 			if((f_v == "0" && t_v) || (f_v  && t_v == "0")) {

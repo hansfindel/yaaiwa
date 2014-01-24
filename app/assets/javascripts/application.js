@@ -17,7 +17,14 @@
 
 $(document).ready(function(){
 	//PuzzleView.init(16)	
-	var _puzzleView = new PuzzleView()
-	_puzzleView.init(16)
+	// var _puzzleView = new PuzzleView()
+	// _puzzleView.init(16)
+
+	// var _puzzleView2 = new PuzzleView()
+	// _puzzleView2.init(9, ".little-one")
+
+	var _puzzleView = PuzzleController.new(16)
+	var _puzzleView2 = PuzzleController.new(9, ".little-one")
+
 })
 
