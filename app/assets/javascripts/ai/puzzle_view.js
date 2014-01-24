@@ -95,6 +95,7 @@ function PuzzleView(){
 		this.puzzle.init(value);
 		if(this.puzzle){
 			self = this; 
+			this.id |= this.randomID()
 			$(this.container).html(self._htmlRepresentation(self))
 			$(this.container).data("container-name", this.container)
 			var cells = $(".cell", self.container)
@@ -110,6 +111,7 @@ function PuzzleView(){
 				var target = e.target; 
 				var value  = $(target).data("cell-id")
 				if(value > 0){
+					// get puzzle view clicked -> puzzle object
 					var puzzleView = PuzzleController.getPuzzleView(containerName)
 					if(puzzleView){
 						moveable = puzzleView.puzzle.isMoveable(value);
@@ -121,6 +123,9 @@ function PuzzleView(){
 				}
 			})
 		}
+	}
+	this.randomID = function(){
+		return Date.now() + "-" + parseInt(Math.random() * 100)
 	}
 	this.setContainer = function(_container){
 		if(_container){
@@ -167,24 +172,25 @@ function PuzzleView(){
 		return (val > 0 ? val : "")
 	}
 	this.simpleMove = function(value, puzzleView){
-		var puzzle  = puzzleView.puzzle
+		var puzzle  = puzzleView.puzzle;
 		var context = puzzleView.container;
+
 		var cellIndex   = puzzle.findIndexFor(value); 
 		var nearbyZeros = puzzle.findNearbyZeros(cellIndex); 
 		var zeros_count = nearbyZeros.length;
 		
 		if(zeros_count == 1){
 			var zeroIndex = nearbyZeros[0];
-			puzzle.simpleMove(cellIndex, zeroIndex)
-			var from = $("[data-cell-index='"+cellIndex+"']", context)
-			var to   = $("[data-cell-index='"+zeroIndex+"']", context)
-			var f_v  = from.data("cell-id")
-			var t_v  = to.data("cell-id") 
+			puzzle.simpleMove(cellIndex, zeroIndex);
+			var from = $("[data-cell-index='"+cellIndex+"']", context);
+			var to   = $("[data-cell-index='"+zeroIndex+"']", context);
+			var f_v  = from.data("cell-id");
+			var t_v  = to.data("cell-id") ;
 			if((f_v == "0" && t_v) || (f_v  && t_v == "0")) {
-				from.data("cell-id", t_v)
-				from.text(this.cellValue(t_v))
-				to.data("cell-id", f_v)
-				to.text(this.cellValue(f_v))
+				from.data("cell-id", t_v);
+				from.text(this.cellValue(t_v));
+				to.data("cell-id", f_v);
+				to.text(this.cellValue(f_v));
 			}	
 		}
 	}
