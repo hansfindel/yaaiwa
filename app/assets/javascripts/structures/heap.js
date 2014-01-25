@@ -39,9 +39,11 @@ MyMinHeap.prototype.sort = function(add) {
 		if(min){
 			if(min == l_val){
 				this.content[index] = left;
+				this.content[2 * index  + 1 ] = null;
 				sortSubtree(2 *  index + 1 )
 			} else {
 				this.content[index] = right;
+				this.content[2 * index  + 2 ] = null;
 				sortSubtree(2 * (index + 1))
 			}
 		}	
@@ -100,27 +102,27 @@ MyMinHeap.prototype.print = function(){
 	printSubtree([0])
 }
 
-
-q = new MyMinHeap()
-q.push(new e(178))
-q.push(new e(124))
-q.push(new e(1512))
-q.push(new e(4212))
-q.push(new e(55512))
-q.push(new e(1212))
-q.print()
-console.log(q.content.map(function(e){return e.to_value()}).join(" - "))
-console.log("****************************************")
-q.push(new e(1))
-q.push(new e(111))
-q.push(new e(13321))
-q.push(new e(1331221))
-q.push(new e(13324441))
-q.print()
-console.log(q.content.map(function(e){return e.to_value()}).join(" - "))
-console.log("****************************************")
-q.push(new e(13321222))
-q.push(new e(13321333))
-q.push(new e(1))
-q.print()
-console.log(q.content.map(function(e){return e.to_value()}).join(" - "))
+// test MyMinHeap
+// q = new MyMinHeap()
+// q.push(new e(178))
+// q.push(new e(124))
+// q.push(new e(1512))
+// q.push(new e(4212))
+// q.push(new e(55512))
+// q.push(new e(1212))
+// q.print()
+// console.log(q.content.map(function(e){return e.to_value()}).join(" - "))
+// console.log("****************************************")
+// q.push(new e(1))
+// q.push(new e(111))
+// q.push(new e(13321))
+// q.push(new e(1331221))
+// q.push(new e(13324441))
+// q.print()
+// console.log(q.content.map(function(e){return e.to_value()}).join(" - "))
+// console.log("****************************************")
+// q.push(new e(13321222))
+// q.push(new e(13321333))
+// q.push(new e(1))
+// q.print()
+// console.log(q.content.map(function(e){return e.to_value()}).join(" - "))
