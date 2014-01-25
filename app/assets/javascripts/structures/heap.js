@@ -9,6 +9,7 @@ MyMinHeap.prototype.push = function(o) {
 }
 	
 MyMinHeap.prototype.pop = function() { 
+	
 	this.content[0] = null; 
 	this.sort(false)
 }

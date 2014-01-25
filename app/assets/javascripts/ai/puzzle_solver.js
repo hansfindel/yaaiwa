@@ -18,7 +18,7 @@ function PuzzleSolver(puzzleView){
 	this.parents = {};
 	this.count = 0; 
 	this.limit = 100;
-	this.brute_force_count = 0;
+	this.a_star_count = 0;
 	// could modify this and the iterate method to store when it reached it 
 
 	// make method to work with A*
@@ -35,6 +35,7 @@ function PuzzleSolver(puzzleView){
 		this.brute_force_count = 0;
 		var instance = new PuzzleInstanceSolver(this.puzzle)
 		var id = instance.getPuzzleIdentifier()
+		this.parents = {};
 		this.parents[id] = "";
 		this.reached.add(id)
 		var iteration = [instance];
@@ -127,14 +128,16 @@ function PuzzleSolver(puzzleView){
 	this.solve = function(many_plans, all_options_per_iteration){
 		initial_time = Date.now();
 		this.count = 0; 
-		this.brute_force_count = 0;
+		this.a_star_count = 0;
 		var instance = new PuzzleInstanceSolver(this.puzzle)
 		var id = instance.getPuzzleIdentifier()
+		this.parents = {};
 		this.parents[id] = "";
 		this.reached.add(id)
-		var iteration = [instance];
+		var iteration = new MyMinHeap();
+		iteration.push(instance)
 
-		var solution = this.iterate(iteration, many_plans, all_options_per_iteration)
+		var solution = this.starIterate(iteration, many_plans, all_options_per_iteration)
 
 		if(solution == null){
 			return console.log("NO SOLUTION...")
@@ -150,6 +153,56 @@ function PuzzleSolver(puzzleView){
 		// 	// countinue searching other solutions
 		// }
 	}
+	this.starIterate = function(queue, many_plans, all_options_per_iteration){
+		// if solved return path
+		// else prepare next iteration
+		var newArraySet = new MySet(); // add returns if added 
+		// var new_configuration_count = 0; 
+		// var configuration_count     = 0;
+		this.count = this.count + 1; 
+		console.log("**************************************************************")
+		console.log("ITERATION: ", this.count)
+		console.log("Array size: ", queue.length);
+		var instance = queue.pop()
+		
+		var instanceID = instance.getPuzzleIdentifier();
+		var puzzles = instance.generateNextSteps();
+		
+		// this.brute_force_count = this.brute_force_count  + 1; // count nodes expanded
+		if(instance.isReady()){
+			return instanceID;
+		}
+		for(var j = 0; j < puzzles.length; j++){
+			var puzzleInstanceSolver = puzzles[j];
+			var id = puzzleInstanceSolver.getPuzzleIdentifier();
+			// console.log("	watching instance: ", id)
+			// configuration_count += 1;
+			if( all_options_per_iteration || this.reached.add(id) ){
+				if(!all_options_per_iteration){
+					// reached for the first time
+					if(!this.parents[id]){
+						this.parents[id] = this.parents[id] || instanceID;	
+						// new_configuration_count += 1;
+					}
+				}
+				// console.log("added")
+				if(newArraySet.add(puzzleInstanceSolver.getPuzzleIdentifier())){
+					// add only once
+					queue.push(puzzleInstanceSolver);	
+				}
+			}
+		}
+		
+		// console.log("Instances generated: ", configuration_count)
+		// console.log("Totally new instances: ", new_configuration_count)
+		// console.log("**************************************************************")
+		// if reached here... try a new iteration if any
+		if( queue.content.length == 0 || this.count >= this.limit ){
+			return null; // impossible to reach a solution
+		}
+		// console.log("size: ", new_array.length)
+		return this.iterate(queue, many_plans, all_options_per_iteration)
+	}
 	
 }
 
@@ -161,7 +214,8 @@ getStar = function(selector){
 	pv = PuzzleController.getPuzzleView(selector)
 	p = pv.puzzle
 	solver = new PuzzleSolver(pv)
-	solver.brute_force_solve(false, false)
+	solver.solve(false, false)
+	// solver.brute_force_solve(false, false)
 	instance = new PuzzleInstanceSolver(p)
 	star = PuzzleAStar(instance)
 }
