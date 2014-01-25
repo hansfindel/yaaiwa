@@ -50,6 +50,7 @@ function PuzzleSolver(puzzle){
 		// else prepare next iteration
 		var new_array = [];
 		var newArraySet = new MySet(); // add returns if added 
+		var new_configuration_count = 0; 
 		this.count = this.count + 1; 
 		console.log("**************************************************************")
 		console.log("ITERATION: ", this.count)
@@ -70,7 +71,10 @@ function PuzzleSolver(puzzle){
 				if( all_options_per_iteration || this.reached.add(id) ){
 					if(!all_options_per_iteration){
 						// reached for the first time
-						this.parents[id] = instanceID;	
+						if(!this.parents[id]){
+							this.parents[id] = this.parents[id] || instanceID;	
+							new_configuration_count += 1;
+						}
 					}
 					// console.log("added")
 					if(newArraySet.add(puzzleInstanceSolver.getPuzzleIdentifier())){
@@ -80,6 +84,7 @@ function PuzzleSolver(puzzle){
 				}
 			}
 		}
+		console.log("Totally new instances: ", new_configuration_count)
 		console.log("**************************************************************")
 		// if reached here... try a new iteration if any
 		if( new_array.length == 0 || this.count >= this.limit ){
@@ -248,8 +253,11 @@ function PuzzleInstanceSolver(puzzle){
 }
 
 
-getStar = function(){
-	pv = PuzzleController.getPuzzleView(".little-one")
+getStar = function(selector){
+	if(!selector){ 
+	  selector = ".little-one"
+	}
+	pv = PuzzleController.getPuzzleView(selector)
 	p = pv.puzzle
 	instance = new PuzzleInstanceSolver(p)
 	solver = new PuzzleSolver(p)
