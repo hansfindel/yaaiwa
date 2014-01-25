@@ -1,5 +1,6 @@
-function PuzzleSolver(puzzle){
-	this.puzzle = puzzle; // maybe pass a puzzleView 
+function PuzzleSolver(puzzleView){
+	this.puzzleView = puzzleView;
+	this.puzzle = puzzleView.puzzle; // maybe pass a puzzleView 
 	this.minimal = [];
 	this.solutions = []; 
 
@@ -51,6 +52,7 @@ function PuzzleSolver(puzzle){
 		var new_array = [];
 		var newArraySet = new MySet(); // add returns if added 
 		var new_configuration_count = 0; 
+		var configuration_count     = 0;
 		this.count = this.count + 1; 
 		console.log("**************************************************************")
 		console.log("ITERATION: ", this.count)
@@ -68,6 +70,7 @@ function PuzzleSolver(puzzle){
 				var puzzleInstanceSolver = puzzles[j];
 				var id = puzzleInstanceSolver.getPuzzleIdentifier();
 				// console.log("	watching instance: ", id)
+				configuration_count += 1;
 				if( all_options_per_iteration || this.reached.add(id) ){
 					if(!all_options_per_iteration){
 						// reached for the first time
@@ -84,8 +87,9 @@ function PuzzleSolver(puzzle){
 				}
 			}
 		}
+		console.log("Instances generated: ", configuration_count)
 		console.log("Totally new instances: ", new_configuration_count)
-		console.log("**************************************************************")
+		// console.log("**************************************************************")
 		// if reached here... try a new iteration if any
 		if( new_array.length == 0 || this.count >= this.limit ){
 			return null; // impossible to reach a solution
@@ -122,8 +126,8 @@ getStar = function(selector){
 	}
 	pv = PuzzleController.getPuzzleView(selector)
 	p = pv.puzzle
-	instance = new PuzzleInstanceSolver(p)
-	solver = new PuzzleSolver(p)
+	solver = new PuzzleSolver(pv)
 	solver.brute_force_solve(false, false)
+	instance = new PuzzleInstanceSolver(p)
 	star = PuzzleAStar(instance)
 }
