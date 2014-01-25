@@ -55,7 +55,7 @@ MyMinHeap.prototype.sort = function(add) {
 		}
 		var child  = content[index];
 		var parent = content[parentIndex];
-		console.log("child.to_value() ["+child.to_value()+"] < parent.to_value() ["+ parent.to_value() +"]", child.to_value() < parent.to_value())
+		// console.log("child.to_value() ["+child.to_value()+"] < parent.to_value() ["+ parent.to_value() +"]", child.to_value() < parent.to_value())
 		if(child.to_value() < parent.to_value()){
 			// var temp = parent; 
 			this.content[parentIndex] = child 
