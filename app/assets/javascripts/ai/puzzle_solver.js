@@ -136,7 +136,7 @@ function PuzzleSolver(puzzleView){
 		this.reached.add(id)
 		var iteration = new MyMinHeap();
 		iteration.push(instance)
-
+		// console.log(iteration)
 		var solution = this.starIterate(iteration, many_plans, all_options_per_iteration)
 
 		if(solution == null){
@@ -202,8 +202,8 @@ function PuzzleSolver(puzzleView){
 		if( queue.content.length == 0 || this.count >= this.limit ){
 			return null; // impossible to reach a solution
 		}
-		// console.log("size: ", new_array.length)
-		return this.iterate(queue, many_plans, all_options_per_iteration)
+		console.log("queue: ", queue)
+		return this.starIterate(queue, many_plans, all_options_per_iteration)
 	}
 	
 }
@@ -217,6 +217,8 @@ getStar = function(selector){
 	p = pv.puzzle
 	solver = new PuzzleSolver(pv)
 	solver.solve(false, false)
+	console.log("solve")
+	// console.log("brute_force_solve")
 	// solver.brute_force_solve(false, false)
 	instance = new PuzzleInstanceSolver(p)
 	star = PuzzleAStar(instance)

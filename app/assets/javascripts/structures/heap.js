@@ -4,15 +4,16 @@ var MyMinHeap = function() {
 
 MyMinHeap.prototype.push = function(o) { 
 	this.content.push(o); 
-	console.log(this)
+	// console.log(this)
 	this.sort(true)
 }
 	
 MyMinHeap.prototype.pop = function() {
-	var val = content[0]
-	this.content[0] = null; 
+	// var val = content[0]
+	// this.content[0] = null; 
+	var val = this.content.splice(0, 1)
 	this.sort(false)
-	return val;
+	return val[0];
 }
 MyMinHeap.prototype.sort = function(add) { 
 	// check if not null
@@ -51,7 +52,7 @@ MyMinHeap.prototype.sort = function(add) {
 		}	
 	}
 	function sortRoot(index){
-		console.log("sortRoot :: index", index)
+		// console.log("sortRoot :: index", index)
 		var parentIndex = parseInt((index - 1) / 2)
 		if(parentIndex == -1){
 			return;
