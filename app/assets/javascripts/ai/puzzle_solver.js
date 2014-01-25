@@ -20,6 +20,7 @@ function PuzzleSolver(puzzle){
     // ******************************************************** */
 
 	this.brute_force_solve = function(many_plans, all_options_per_iteration){
+		initial_time = Date.now();
 		this.count = 0; 
 		this.brute_force_count = 0;
 		var instance = new PuzzleInstanceSolver(this.puzzle)
@@ -37,22 +38,12 @@ function PuzzleSolver(puzzle){
 		var steps = this.traceSolution(solution, []);
 		console.log("Solution:")
 		console.log(steps);
+
+		var time = Date.now() - initial_time;
+		console.log("total time: ", time/1000, "s")
 		// if(many_plans){
 		// 	// countinue searching other solutions
 		// }
-
-	}
-	this.traceSolution = function(sol, array){
-		var prev = this.parents[sol]
-		array.push(sol);
-		if(prev != ""){
-			return this.traceSolution(prev, array)
-		}
-		var solutionByStep = []
-		for(var i = array.length - 1; i >= 0; i--){
-			solutionByStep.push(array[i])
-		}
-		return solutionByStep;
 	}
 	this.iterate = function(array, many_plans, all_options_per_iteration){
 		// if solved return path
@@ -98,6 +89,18 @@ function PuzzleSolver(puzzle){
 		return this.iterate(new_array, many_plans, all_options_per_iteration)
 	}
 
+	this.traceSolution = function(sol, array){
+		var prev = this.parents[sol]
+		array.push(sol);
+		if(prev != ""){
+			return this.traceSolution(prev, array)
+		}
+		var solutionByStep = []
+		for(var i = array.length - 1; i >= 0; i--){
+			solutionByStep.push(array[i])
+		}
+		return solutionByStep;
+	}
 	this.h = function(instance){
 		// f = g + h
 		star = new AStar(instance)
