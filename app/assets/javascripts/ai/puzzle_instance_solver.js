@@ -84,4 +84,17 @@ function PuzzleInstanceSolver(puzzle){
 		// identifier of puzzle 
 		return this.copy.array.join("-");
 	}
+
+	this.h = function(instance){
+		// f = g + h
+		star = new PuzzleAStar(instance)
+		return star.h()
+	}
+	this.to_value = function(){
+		this.h(this)
+	}
 }
+
+
+
+e = function(i) { this.to_value = function(){return i;}}

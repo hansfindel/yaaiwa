@@ -4,7 +4,16 @@ function PuzzleSolver(puzzleView){
 	this.minimal = [];
 	this.solutions = []; 
 
-	// this.seen = new Set(); // do not save the expanded nodes of these ones
+	// brute_force_solve attributes 
+	this.reached = new MySet(); // add returns if added 
+	this.parents = {};
+	this.count = 0; 
+	this.limit = 100;
+	this.brute_force_count = 0;
+	// could modify this and the iterate method to store when it reached it 
+
+
+	// solve attributes 
 	this.reached = new MySet(); // add returns if added 
 	this.parents = {};
 	this.count = 0; 
@@ -115,7 +124,32 @@ function PuzzleSolver(puzzleView){
 		star = new PuzzleAStar(instance)
 		return star.h()
 	}
+	this.solve = function(many_plans, all_options_per_iteration){
+		initial_time = Date.now();
+		this.count = 0; 
+		this.brute_force_count = 0;
+		var instance = new PuzzleInstanceSolver(this.puzzle)
+		var id = instance.getPuzzleIdentifier()
+		this.parents[id] = "";
+		this.reached.add(id)
+		var iteration = [instance];
 
+		var solution = this.iterate(iteration, many_plans, all_options_per_iteration)
+
+		if(solution == null){
+			return console.log("NO SOLUTION...")
+		}
+
+		var steps = this.traceSolution(solution, []);
+		console.log("Solution:")
+		console.log(steps);
+
+		var time = Date.now() - initial_time;
+		console.log("total time: ", time/1000, "s")
+		// if(many_plans){
+		// 	// countinue searching other solutions
+		// }
+	}
 	
 }
 
