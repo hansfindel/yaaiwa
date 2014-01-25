@@ -47,12 +47,13 @@ MyMinHeap.prototype.sort = function(add) {
 		}	
 	}
 	function sortRoot(index){
-		var parentIndex = parseInt((index/2) - 1)
+		var parentIndex = parseInt((index - 1) / 2)
 		if(parentIndex == -1){
 			return;
 		}
 		var child  = content[index];
 		var parent = content[parentIndex];
+		console.log("child.to_value() ["+child.to_value()+"] < parent.to_value() ["+ parent.to_value() +"]", child.to_value() < parent.to_value())
 		if(child.to_value() < parent.to_value()){
 			// var temp = parent; 
 			this.content[parentIndex] = child 
@@ -108,6 +109,7 @@ q.push(new e(4212))
 q.push(new e(55512))
 q.push(new e(1212))
 q.print()
+console.log(q.content.map(function(e){return e.to_value()}).join(" - "))
 console.log("****************************************")
 q.push(new e(1))
 q.push(new e(111))
@@ -115,8 +117,10 @@ q.push(new e(13321))
 q.push(new e(1331221))
 q.push(new e(13324441))
 q.print()
+console.log(q.content.map(function(e){return e.to_value()}).join(" - "))
 console.log("****************************************")
 q.push(new e(13321222))
 q.push(new e(13321333))
 q.push(new e(1))
 q.print()
+console.log(q.content.map(function(e){return e.to_value()}).join(" - "))
