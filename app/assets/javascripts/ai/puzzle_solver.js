@@ -8,6 +8,7 @@ function PuzzleSolver(puzzle){
 	this.parents = {};
 	this.count = 0; 
 	this.limit = 100;
+	this.brute_force_count = 0;
 	// could modify this and the iterate method to store when it reached it 
 
 	// make method to work with A*
@@ -20,6 +21,7 @@ function PuzzleSolver(puzzle){
 
 	this.brute_force_solve = function(many_plans, all_options_per_iteration){
 		this.count = 0; 
+		this.brute_force_count = 0;
 		var instance = new PuzzleInstanceSolver(this.puzzle)
 		var id = instance.getPuzzleIdentifier()
 		this.parents[id] = "";
@@ -65,24 +67,25 @@ function PuzzleSolver(puzzle){
 			var instance = array[i];
 			var instanceID = instance.getPuzzleIdentifier();
 			var puzzles = instance.generateNextSteps();
-			console.log("instance: ", instanceID, " ----- posibilities: ", puzzles)
+			// console.log("instance: ", instanceID, " ----- posibilities: ", puzzles)
+			this.brute_force_count = this.brute_force_count  + 1; // count nodes expanded
 			if(instance.isReady()){
 				return instanceID;
 			}
 			for(var j = 0; j < puzzles.length; j++){
 				var puzzleInstanceSolver = puzzles[j];
 				var id = puzzleInstanceSolver.getPuzzleIdentifier();
-				console.log("	watching instance: ", id)
+				// console.log("	watching instance: ", id)
 				if( all_options_per_iteration || this.reached.add(id) ){
 					if(!all_options_per_iteration){
 						// reached for the first time
 						this.parents[id] = instanceID;	
 					}
-					console.log("added")
-					// if(newArraySet.add(puzzleInstanceSolver)){
+					// console.log("added")
+					if(newArraySet.add(puzzleInstanceSolver.getPuzzleIdentifier())){
 						// add only once
 						new_array.push(puzzleInstanceSolver);	
-					// }
+					}
 				}
 			}
 		}
@@ -91,7 +94,7 @@ function PuzzleSolver(puzzle){
 		if( new_array.length == 0 || this.count >= this.limit ){
 			return null; // impossible to reach a solution
 		}
-		console.log("size: ", new_array.length)
+		// console.log("size: ", new_array.length)
 		return this.iterate(new_array, many_plans, all_options_per_iteration)
 	}
 
