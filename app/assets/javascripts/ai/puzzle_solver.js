@@ -7,6 +7,7 @@ function PuzzleSolver(puzzle){
 	this.reached = new MySet(); // add returns if added 
 	this.parents = {};
 	this.count = 0; 
+	this.limit = 100;
 	// could modify this and the iterate method to store when it reached it 
 
 	// make method to work with A*
@@ -63,11 +64,11 @@ function PuzzleSolver(puzzle){
 		for(var i = 0; i < array.length; i++){
 			var instance = array[i];
 			var instanceID = instance.getPuzzleIdentifier();
+			var puzzles = instance.generateNextSteps();
+			console.log("instance: ", instanceID, " ----- posibilities: ", puzzles)
 			if(instance.isReady()){
 				return instanceID;
 			}
-			var puzzles = instance.generateNextSteps();
-			console.log("instance: ", instanceID, " ----- posibilities: ", puzzles)
 			for(var j = 0; j < puzzles.length; j++){
 				var puzzleInstanceSolver = puzzles[j];
 				var id = puzzleInstanceSolver.getPuzzleIdentifier();
@@ -78,18 +79,19 @@ function PuzzleSolver(puzzle){
 						this.parents[id] = instanceID;	
 					}
 					console.log("added")
-					if(newArraySet.add(puzzleInstanceSolver)){
+					// if(newArraySet.add(puzzleInstanceSolver)){
 						// add only once
 						new_array.push(puzzleInstanceSolver);	
-					}
+					// }
 				}
 			}
 		}
 		console.log("**************************************************************")
 		// if reached here... try a new iteration if any
-		if(new_array.length == 0){
+		if( new_array.length == 0 || this.count >= this.limit ){
 			return null; // impossible to reach a solution
 		}
+		console.log("size: ", new_array.length)
 		return this.iterate(new_array, many_plans, all_options_per_iteration)
 	}
 
