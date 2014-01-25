@@ -88,7 +88,8 @@ function PuzzleInstanceSolver(puzzle){
 	this.h = function(instance){
 		// f = g + h
 		star = new PuzzleAStar(instance)
-		return star.h()
+		var val = star.h()
+		return val;
 	}
 	this.to_value = function(){
 		this.h(this)

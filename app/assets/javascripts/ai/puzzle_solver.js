@@ -162,9 +162,9 @@ function PuzzleSolver(puzzleView){
 		this.count = this.count + 1; 
 		console.log("**************************************************************")
 		console.log("ITERATION: ", this.count)
-		console.log("Array size: ", queue.length);
+		console.log("Array size: ", queue.content.length);
 		var instance = queue.pop()
-		
+
 		var instanceID = instance.getPuzzleIdentifier();
 		var puzzles = instance.generateNextSteps();
 		
@@ -188,7 +188,9 @@ function PuzzleSolver(puzzleView){
 				// console.log("added")
 				if(newArraySet.add(puzzleInstanceSolver.getPuzzleIdentifier())){
 					// add only once
+					// console.log("puzzleInstanceSolver: ", puzzleInstanceSolver, " - value=", puzzleInstanceSolver.to_value())
 					queue.push(puzzleInstanceSolver);	
+					console.log("xxxxxxx")
 				}
 			}
 		}

@@ -4,8 +4,8 @@ var MyMinHeap = function() {
 
 MyMinHeap.prototype.push = function(o) { 
 	this.content.push(o); 
+	console.log(this)
 	this.sort(true)
-
 }
 	
 MyMinHeap.prototype.pop = function() {
@@ -51,14 +51,19 @@ MyMinHeap.prototype.sort = function(add) {
 		}	
 	}
 	function sortRoot(index){
+		console.log("sortRoot :: index", index)
 		var parentIndex = parseInt((index - 1) / 2)
 		if(parentIndex == -1){
 			return;
 		}
 		var child  = content[index];
 		var parent = content[parentIndex];
+		// console.log("index: ", index)
+		// console.log("parentIndex: ", parentIndex)
+		// console.log("child: ", child)
+		// console.log("parent: ", parent)
 		// console.log("child.to_value() ["+child.to_value()+"] < parent.to_value() ["+ parent.to_value() +"]", child.to_value() < parent.to_value())
-		if(child.to_value() < parent.to_value()){
+		if(child && parent && child.to_value() < parent.to_value()){
 			// var temp = parent; 
 			this.content[parentIndex] = child 
 			this.content[index] = parent; 
