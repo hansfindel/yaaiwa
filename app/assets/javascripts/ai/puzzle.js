@@ -227,11 +227,15 @@ function Puzzle (){
 		}	
 	}
 	this.isOrdered = function(){
+		// unstrict order ([x|y..] || x < y || y out of bounds)
 		if(this.side > 0){
+			var previous = 0; 
 			for(var i = 0; i < this.array.length; i++){
-				if(this.array[i] != i){
+				var current = this.array[i]; 
+				if( previous > current ){
 					return false;
 				}
+				previous = current; 
 			}
 			return true;
 		}
