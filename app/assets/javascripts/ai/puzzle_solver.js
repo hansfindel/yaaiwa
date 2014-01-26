@@ -16,8 +16,7 @@ function PuzzleSolver(puzzleView){
 	// solve attributes 
 	this.reached = new MySet(); // add returns if added 
 	this.parents = {};
-	this.count = 0; 
-	this.limit = 100;
+	this.count = 0;
 	this.a_star_count = 0;
 	// could modify this and the iterate method to store when it reached it 
 
@@ -127,6 +126,7 @@ function PuzzleSolver(puzzleView){
 	}
 	this.solve = function(many_plans, all_options_per_iteration){
 		initial_time = Date.now();
+		this.limit = 1000000;
 		this.count = 0; 
 		this.a_star_count = 0;
 		var instance = new PuzzleInstanceSolver(this.puzzle)
