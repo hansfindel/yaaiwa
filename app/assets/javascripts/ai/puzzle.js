@@ -275,8 +275,10 @@ function Puzzle (){
 			if(pos != 0){
 				var next = index + pos; // next in the row - left or right
 				if(next >= 0 && next < this.array.length){
+					same_row =  parseInt(next % this.side) == parseInt(index % this.side)
+					console.log("side: ", this.side , " same_row: ", same_row)
 					var next_val = this.array[next]
-					if(next_val == 0){
+					if(next_val == 0 && same_row){
 						nearbyZeros.push(next)
 					}
 					var offset = index + pos * this.side; // row adjacent - up or down
