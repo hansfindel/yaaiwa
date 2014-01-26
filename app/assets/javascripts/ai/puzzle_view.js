@@ -116,6 +116,7 @@ function PuzzleView(){
 					// get puzzle view clicked -> puzzle object
 					if(puzzleView){
 						moveable = puzzleView.puzzle.isMoveable(value);
+						console.log("moveable ", moveable)
 						if(moveable == 1){
 							puzzleView.simpleMove(value, puzzleView);
 						} else {
@@ -129,9 +130,12 @@ function PuzzleView(){
 					to = $(this).data("cell-index")
 					// check that are near
 					dif = Math.abs(to - from)
-					same_row = puzzleView.puzzle.sameRow(from, to)
-					same_col = puzzleView.puzzle.sameCol(from, to)
-					if(same_row || same_col){
+					// same_row = puzzleView.puzzle.sameRow(from, to)
+					// same_col = puzzleView.puzzle.sameCol(from, to)
+					// console.log("sameRow = ", same_row)
+					// console.log("sameCol = ", same_col)
+					// if(same_row || same_col){
+					if(dif == 1 || dif == puzzleView.puzzle.side){ 
 						puzzleView.move(from, to, puzzleView)	
 					}
 					e.removeClass("selected")
@@ -193,16 +197,17 @@ function PuzzleView(){
 		var cellIndex   = puzzle.findIndexFor(value); 
 		var nearbyZeros = puzzle.findNearbyZeros(cellIndex); 
 		var zeros_count = nearbyZeros.length;
-		
+		console.log("cellIndex: ", cellIndex)
 		if(zeros_count == 1){
 			var zeroIndex = nearbyZeros[0];
+			console.log("zeroIndex ", zeroIndex)
 			this.move(cellIndex, zeroIndex, puzzleView)
 		}
 	}
 	this.move = function(from, to, puzzleView){
 		var puzzle  = puzzleView.puzzle;
 		var context = puzzleView.container;
-
+		console.log("move - ", from, " - ", to)
 		puzzle.simpleMove(from, to);
 		var from = $("[data-cell-index='"+from+"']", context);
 		var to   = $("[data-cell-index='"+to+"']", context);
