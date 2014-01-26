@@ -4,6 +4,21 @@ function PuzzleSolverView(puzzleView){
 	this.moves = [];
 	this.movesCount = 0;
 
+	this.timeout = 1000;
+
+	this.setSpeed = function(val){
+		if(typeof(val)=="string"){
+			speed = ["slow", "normal", "fast"].indexOf(val);
+		} else {
+			speed = val;
+		}
+		if(typeof(speed) == "number"){
+			speed = parseInt(speed)
+			time = 3 - speed
+			this.timeout = Math.pow(10, time)
+		}
+	}
+
 	this.setMoves = function(){
 		this.moves = [];
 		var steps = this.solver.minimalSteps
@@ -40,13 +55,12 @@ function PuzzleSolverView(puzzleView){
 		this.doMove(0)
 	}
 	this.doMove = function(i){
-		console.log("doMove ***")
 		self = this;
 		var move = this.moves[i];
 		if(!move){
 			return;
 		}
-		console.log(move)
+		// console.log(move)
 		puzzleView.move(move[1], move[0], puzzleView)
 
 		// fire next movement
@@ -54,6 +68,6 @@ function PuzzleSolverView(puzzleView){
 			if(i < self.movesCount){
 				self.doMove(i + 1);
 			}
-		}, 100)
+		}, this.timeout)
 	}
 }

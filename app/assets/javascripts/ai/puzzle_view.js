@@ -106,7 +106,6 @@ function PuzzleView(){
 				// this == cell clicked
 				var context = this.parentElement.parentElement.parentElement; // container > matrix > row > cell
 				var containerName = $(context).data("container-name")
-				console.log("click on ", containerName)
 				// console.log("context: ", context)
 				// console.log("containerName: ", containerName)
 				var target = e.target; 
@@ -114,7 +113,6 @@ function PuzzleView(){
 				if(value > 0){
 					// get puzzle view clicked -> puzzle object
 					var puzzleView = PuzzleController.getPuzzleView(containerName)
-					console.log(puzzleView)
 					if(puzzleView){
 						moveable = puzzleView.puzzle.isMoveable(value);
 						if(moveable == 1){
