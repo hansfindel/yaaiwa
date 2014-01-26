@@ -1,8 +1,8 @@
 function PuzzleSolver(puzzleView){
-	this.puzzleView = puzzleView;
+	// this.puzzleView = puzzleView;
 	this.puzzle = puzzleView.puzzle; // maybe pass a puzzleView 
-	this.minimal = [];
-	this.solutions = []; 
+	this.minimalSteps = [];
+	// this.solutions = []; 
 
 	// brute_force_solve attributes 
 	this.reached = new MySet(); // add returns if added 
@@ -48,6 +48,7 @@ function PuzzleSolver(puzzleView){
 		var steps = this.traceSolution(solution, []);
 		console.log("Solution:")
 		console.log(steps);
+		this.minimalSteps = steps;
 
 		var time = Date.now() - initial_time;
 		console.log("total time: ", time/1000, "s")
@@ -214,10 +215,14 @@ getStar = function(selector){
 	}
 	pv = PuzzleController.getPuzzleView(selector)
 	p = pv.puzzle
-	solver1 = new PuzzleSolver(pv)
-	solver1.solve(false, false)
-	solver2 = new PuzzleSolver(pv)
-	solver2.brute_force_solve(false, false)
+	// solver1 = new PuzzleSolver(pv)
+	// solver1.solve(false, false)
+	// // solve can get alternative paths easier
+	// solver2 = new PuzzleSolver(pv)
+	// solver2.brute_force_solve(false, false)
 	instance = new PuzzleInstanceSolver(p)
 	star = PuzzleAStar(instance)
+
+	x = new PuzzleSolverView(pv)
+	x.solve()
 }

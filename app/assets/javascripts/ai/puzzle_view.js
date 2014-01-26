@@ -175,7 +175,7 @@ function PuzzleView(){
 	}
 	this.simpleMove = function(value, puzzleView){
 		var puzzle  = puzzleView.puzzle;
-		var context = puzzleView.container;
+		// var context = puzzleView.container;
 
 		var cellIndex   = puzzle.findIndexFor(value); 
 		var nearbyZeros = puzzle.findNearbyZeros(cellIndex); 
@@ -183,17 +183,23 @@ function PuzzleView(){
 		
 		if(zeros_count == 1){
 			var zeroIndex = nearbyZeros[0];
-			puzzle.simpleMove(cellIndex, zeroIndex);
-			var from = $("[data-cell-index='"+cellIndex+"']", context);
-			var to   = $("[data-cell-index='"+zeroIndex+"']", context);
-			var f_v  = from.data("cell-id");
-			var t_v  = to.data("cell-id") ;
-			if((f_v == "0" && t_v) || (f_v  && t_v == "0")) {
-				from.data("cell-id", t_v);
-				from.text(this.cellValue(t_v));
-				to.data("cell-id", f_v);
-				to.text(this.cellValue(f_v));
-			}	
+			this.move(cellIndex, zeroIndex, puzzleView)
+		}
+	}
+	this.move = function(from, to, puzzleView){
+		var puzzle  = puzzleView.puzzle;
+		var context = puzzleView.container;
+
+		puzzle.simpleMove(from, to);
+		var from = $("[data-cell-index='"+from+"']", context);
+		var to   = $("[data-cell-index='"+to+"']", context);
+		var f_v  = from.data("cell-id");
+		var t_v  = to.data("cell-id") ;
+		if((f_v == "0" && t_v) || (f_v  && t_v == "0")) {
+			from.data("cell-id", t_v);
+			from.text(this.cellValue(t_v));
+			to.data("cell-id", f_v);
+			to.text(this.cellValue(f_v));
 		}
 	}
 }
