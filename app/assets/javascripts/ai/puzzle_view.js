@@ -110,16 +110,25 @@ function PuzzleView(){
 				// console.log("containerName: ", containerName)
 				var target = e.target; 
 				var value  = $(target).data("cell-id")
+				var puzzleView = PuzzleController.getPuzzleView(containerName)
 				if(value > 0){
+					$(".selected", containerName).removeClass("selected")
 					// get puzzle view clicked -> puzzle object
-					var puzzleView = PuzzleController.getPuzzleView(containerName)
 					if(puzzleView){
 						moveable = puzzleView.puzzle.isMoveable(value);
 						if(moveable == 1){
 							puzzleView.simpleMove(value, puzzleView);
+						} else {
+							$(this).addClass("selected")
 						}
-						// if more...
 					}
+				} else {
+					// if selected tile, then move
+					e = $(".selected", containerName)
+					from = $(e).data("cell-index")
+					to = $(this).data("cell-index")
+					puzzleView.move(from, to, puzzleView)
+					e.removeClass("selected")
 				}
 			})
 		}
