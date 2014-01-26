@@ -164,7 +164,7 @@ function PuzzleSolver(puzzleView){
 		console.log("ITERATION: ", this.count)
 		console.log("Array size: ", queue.content.length);
 		var instance = queue.pop()
-
+		console.log("instance: ", instance)
 		var instanceID = instance.getPuzzleIdentifier();
 		var puzzles = instance.generateNextSteps();
 		
