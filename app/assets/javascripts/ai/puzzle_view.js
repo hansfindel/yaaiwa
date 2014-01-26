@@ -118,7 +118,7 @@ function PuzzleView(){
 					if(puzzleView){
 						moveable = puzzleView.puzzle.isMoveable(value);
 						if(moveable == 1){
-							self.simpleMove(value, puzzleView);
+							puzzleView.simpleMove(value, puzzleView);
 						}
 						// if more...
 					}
