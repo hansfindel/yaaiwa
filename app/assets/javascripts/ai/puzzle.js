@@ -199,8 +199,8 @@ function Puzzle (){
 						// out of borders
 						return; 
 					}
-					if(numbers[val]){
-						// could make an exception for 0 (empty-space)
+					if(numbers[val] && val != 0){
+						// an exception for 0 (empty-space) for multiZero puzzles
 						// already there
 						return;
 					} else {

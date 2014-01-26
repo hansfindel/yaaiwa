@@ -226,3 +226,20 @@ getStar = function(selector){
 	x = new PuzzleSolverView(pv)
 	x.solve()
 }
+getStar1 = function(selector){
+	if(!selector){ 
+	  selector = ".puzzle-container"
+	}
+	pv = PuzzleController.getPuzzleView(selector)
+	p = pv.puzzle
+	// solver1 = new PuzzleSolver(pv)
+	// solver1.solve(false, false)
+	// // solve can get alternative paths easier
+	// solver2 = new PuzzleSolver(pv)
+	// solver2.brute_force_solve(false, false)
+	instance = new PuzzleInstanceSolver(p)
+	star = PuzzleAStar(instance)
+
+	x = new PuzzleSolverView(pv)
+	x.solve()
+}

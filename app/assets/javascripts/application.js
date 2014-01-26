@@ -23,7 +23,8 @@ $(document).ready(function(){
 	// var _puzzleView2 = new PuzzleView()
 	// _puzzleView2.init(9, ".little-one")
 
-	var _puzzleView = PuzzleController.new(16)
+	// var _puzzleView = PuzzleController.new(16)
+	var _puzzleView = PuzzleController.new([0, 5, 3, 2, 1, 0, 4, 6, 0])
 	var _puzzleView2 = PuzzleController.new(9, ".little-one")
 
 })

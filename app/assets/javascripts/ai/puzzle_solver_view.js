@@ -22,7 +22,7 @@ function PuzzleSolverView(puzzleView){
 	this.setMoves = function(){
 		this.moves = [];
 		var steps = this.solver.minimalSteps
-		console.log("steps: ", steps)
+		// console.log("steps: ", steps)
 		for(var i = 1; i < steps.length; i++){
 			var move = this.getMove(steps[i-1], steps[i]);
 			this.moves.push(move);
@@ -51,7 +51,7 @@ function PuzzleSolverView(puzzleView){
 		this.solver.brute_force_solve(false, false);
 		// solver.minimalSteps has the steps, which have to be converted into 
 		this.setMoves()
-		console.log("this : ", this)
+		// console.log("this : ", this)
 		this.doMove(0)
 	}
 	this.doMove = function(i){
