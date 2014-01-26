@@ -127,7 +127,13 @@ function PuzzleView(){
 					e = $(".selected", containerName)
 					from = $(e).data("cell-index")
 					to = $(this).data("cell-index")
-					puzzleView.move(from, to, puzzleView)
+					// check that are near
+					dif = Math.abs(to - from)
+					same_row = puzzleView.puzzle.sameRow(from, to)
+					same_col = puzzleView.puzzle.sameCol(from, to)
+					if(same_row || same_col){
+						puzzleView.move(from, to, puzzleView)	
+					}
 					e.removeClass("selected")
 				}
 			})

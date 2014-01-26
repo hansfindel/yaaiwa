@@ -275,8 +275,8 @@ function Puzzle (){
 			if(pos != 0){
 				var next = index + pos; // next in the row - left or right
 				if(next >= 0 && next < this.array.length){
-					same_row =  parseInt(next % this.side) == parseInt(index % this.side)
-					console.log("side: ", this.side , " same_row: ", same_row)
+					same_row =  this.sameRow(next, index)
+					// console.log("side: ", this.side , " same_row: ", same_row)
 					var next_val = this.array[next]
 					if(next_val == 0 && same_row){
 						nearbyZeros.push(next)
@@ -292,6 +292,12 @@ function Puzzle (){
 			}
 		}
 		return nearbyZeros; 
+	}
+	this.sameRow = function(from, to){
+		return parseInt(from % this.side) == parseInt(to % this.side)
+	}
+	this.sameCol = function(from, to){
+		return Math.abs(Math.abs(from) - Math.abs(to)) == this.side
 	}
 	this.validIndex = function(index){
 		return (index >= 0 && index < this.array.length)
