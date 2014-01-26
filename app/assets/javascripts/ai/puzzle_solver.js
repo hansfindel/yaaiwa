@@ -190,7 +190,6 @@ function PuzzleSolver(puzzleView){
 					// add only once
 					// console.log("puzzleInstanceSolver: ", puzzleInstanceSolver, " - value=", puzzleInstanceSolver.to_value())
 					queue.push(puzzleInstanceSolver);	
-					console.log("xxxxxxx")
 				}
 			}
 		}
@@ -215,11 +214,10 @@ getStar = function(selector){
 	}
 	pv = PuzzleController.getPuzzleView(selector)
 	p = pv.puzzle
-	solver = new PuzzleSolver(pv)
-	solver.solve(false, false)
-	console.log("solve")
-	// console.log("brute_force_solve")
-	// solver.brute_force_solve(false, false)
+	solver1 = new PuzzleSolver(pv)
+	solver1.solve(false, false)
+	solver2 = new PuzzleSolver(pv)
+	solver2.brute_force_solve(false, false)
 	instance = new PuzzleInstanceSolver(p)
 	star = PuzzleAStar(instance)
 }

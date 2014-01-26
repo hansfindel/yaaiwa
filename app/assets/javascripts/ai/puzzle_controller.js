@@ -2,6 +2,9 @@ PuzzleController = {
 	// puzzleViews: [], 
 	puzzleViews: {}, 
 	new: function(value, container){
+		if(!container){
+			container = new PuzzleView().container
+		}
 		var _puzzleView = new PuzzleView();
 		_puzzleView.init(value, container)
 		if(_puzzleView.puzzle){

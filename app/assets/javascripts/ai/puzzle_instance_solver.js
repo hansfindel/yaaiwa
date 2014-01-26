@@ -2,6 +2,8 @@ function PuzzleInstanceSolver(puzzle){
 	this.copy = new Puzzle();
 	this.copy.init(puzzle.array);
 
+	this._g = 0;
+
 	this.isReady = function(){
 		return this.copy.isOrdered();
 	}
@@ -30,7 +32,9 @@ function PuzzleInstanceSolver(puzzle){
 		var puzzle = new Puzzle();
 		puzzle.init(array);
 		// console.log("generateNextStep::puzzle = ", puzzle, " -- array = ", array)
-		return new PuzzleInstanceSolver(puzzle)
+		var instance = new PuzzleInstanceSolver(puzzle)
+		instance.set_g(this.g() + 1);
+		return instance
 	}
 
 	this.possible_steps = function(){
@@ -85,6 +89,15 @@ function PuzzleInstanceSolver(puzzle){
 		return this.copy.array.join("-");
 	}
 
+	this.f = function(instance){
+		return this.g() + this.h(instance)
+	}
+	this.set_g = function(val){
+		this._g = val; 
+	}
+	this.g = function(){
+		return this._g;
+	}
 	this.h = function(instance){
 		// f = g + h
 		star = new PuzzleAStar(instance)
@@ -92,7 +105,7 @@ function PuzzleInstanceSolver(puzzle){
 		return val;
 	}
 	this.to_value = function(){
-		this.h(this)
+		this.g(this)
 	}
 }
 
