@@ -1,6 +1,6 @@
 Yaaiwa::Application.routes.draw do
   get "static/index"
-  get "static/puzzles"
+  get "static/puzzles", as: "puzzles_static"
   get "static/containers"
 
   root 'static#index' #static/index
