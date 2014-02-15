@@ -142,6 +142,7 @@ function PuzzleView(){
 				}
 			})
 			var pv = this
+			var random_id = this.randomID()
 			var solver = function(){
 				// solver1 = new PuzzleSolver(pv)
 				// solver1.solve(false, false)
@@ -155,7 +156,7 @@ function PuzzleView(){
 				x = new PuzzleSolverView(pv)
 				x.solve()
 			}
-			var button = "<button class='btn'>Solve!</button>"
+			var button = "<button class='btn "+random_id+"'>Solve!</button>"
 			$(this.container).append(button)
 			$("button", this.container).click(solver)
 		}
