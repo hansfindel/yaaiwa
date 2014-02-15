@@ -7,4 +7,6 @@ class StaticController < ApplicationController
 
   def containers
   end
+  def todo_planner
+  end
 end

@@ -3,6 +3,7 @@ Yaaiwa::Application.routes.draw do
   get "static/puzzles", as: "puzzles_static"
   get "static/containers"
 
+  get "static/todo_planner", as: "todo_planner"
   root 'static#index' #static/index
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

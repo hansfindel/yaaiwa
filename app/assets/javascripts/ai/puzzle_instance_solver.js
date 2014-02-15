@@ -146,4 +146,31 @@ function PuzzleInstanceSolver(puzzle){
 
 
 
-e = function(i) { this.to_value = function(){return i;}}
+// e = function(i) { this.to_value = function(){return i;}}
+// /* count how many available options are (steps) steps away from the initial position (from) */
+// iteration = function(array, hash){
+//  new_array = []
+//  for(var i = 0; i < array.length; i++){
+//   temp = array[i].generateNextSteps()
+//   for(var j = 0; j < temp.length; j++){
+//    var id = temp[j].getPuzzleIdentifier()
+//    if(hash[id]==undefined){
+//     //console.log("hash: ", hash)
+//     //console.log("id: ", id)
+//     hash[id] = true
+//     new_array.push(temp[j])
+//    }
+//   }// end of j loop
+//  }// end of i loop
+//  return new_array
+// }
+// function countTil(steps, from){
+//  /* from must be a puzzleInstanceSolver */
+//  var array = [from]
+//  hash = {}
+//  for(var i = 0; i<=steps; i++){
+//   console.log("STEP: ", i)
+//   console.log("count: ", array.length)
+//   array = iteration(array, hash)
+//  }
+// }
