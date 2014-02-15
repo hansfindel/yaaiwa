@@ -162,7 +162,10 @@ function PuzzleView(){
 		}
 	}
 	this.randomID = function(){
-		return Date.now() + "-" + parseInt(Math.random() * 100)
+		function randomValue(){
+			return parseInt(Math.random() * 9999999)
+		}
+		return ( Date.now() + "-" + randomValue() + ":" + randomValue() )
 	}
 	this.setContainer = function(_container){
 		if(_container){
