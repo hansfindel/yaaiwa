@@ -155,7 +155,7 @@ function PuzzleView(){
 				x = new PuzzleSolverView(pv)
 				x.solve()
 			}
-			var button = "<button>button</button>"
+			var button = "<button class='btn'>Solve!</button>"
 			$(this.container).append(button)
 			$("button", this.container).click(solver)
 		}
